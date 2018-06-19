@@ -1,0 +1,96 @@
+.toDoList{
+    width:500px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+    border:green solid 1px;
+    padding: 30px;
+}
+
+.toDoList .task {
+
+   position: relative;
+   padding:5px;
+   margin-top:5px;
+   text-align: left;
+   width: 400px;
+    
+        margin:0 auto;
+       }
+       
+
+.toDoList .task .delete{
+    float: right;
+    color: red;
+    cursor: pointer;
+    display:none;
+    position: absolute;
+    right: 3px;
+    top: 5px;
+       }
+
+.toDoList .tasks{
+       padding: 10px;
+          }
+
+.toDoList .task:hover{
+     background-color: lightgreen;
+       }
+
+.toDoList .task:hover .delete{
+    display: inline-block;
+      }
+
+.toDoList .task.done{
+    text-decoration: line-through;
+      }
+
+.toDoList .todolist-footer{
+    display: flex; 
+    margin-top: 10px;
+    padding: 5px;
+      }
+
+ .toDoList .todolist-footer div{
+    padding:6px;
+      }
+
+ .toDoList .todolist-footer .buttons button.selected{
+    border:2px solid black;
+      }
+
+.toDoList .header{
+    position: relative;
+        
+    }
+
+ .toDoList .header .img-creat{
+    width: 70px;
+    position: absolute;
+    top:-25px;
+    display:none;
+      }
+
+ .toDoList .header .img-creat-blok{
+    width: 70px;
+    position: absolute;
+    top:-25px; 
+    display:inline-block;
+    }
+
+ .toDoList .tasks div .img-task{
+     width: 50px;
+     position: absolute;
+     top:-10px;
+     left:-50px;
+     display:none;
+     }
+
+  .toDoList .tasks div .img-task-blok{
+     width: 50px;
+     position: absolute;
+     top:-10px;
+     left:-50px;
+     display:block;
+     }
+     
