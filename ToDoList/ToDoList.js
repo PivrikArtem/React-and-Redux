@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
+import { createStore, combineReducers } from 'redux';
 import './ToDoList.css';
 import ToDoListFooter from './ToDoListFooter.js';
 import ToDoListTaskCreator from './ToDoListTaskCreator.js';
 import TasksList from './TasksList.js';
-import { getTasks } from './Services.js'
-import { removeTask } from './Services.js'
-
+import { getTasks } from './Services.js';
+import { removeTask } from './Services.js';
+import { toDoListReducer } from './redux/toDoList-reducers.js';
+import { putTasksAction } from './redux/toDolist-actions';
+import {clearCompleted} from  './redux/toDolist-actions';
 
 class ToDoList extends Component {
   constructor() {
-
     super();
+    // immutable.js
+    this.store = createStore(toDoListReducer);
+
+    var state = this.store.getState();
+
     this.state = {
-      tasks: [],
-      filter: 'all',
+      ...state,
       classLoading: 'img-creat'
     };
 
+    this.store.subscribe(() => {
+      var state = this.store.getState();
+      this.setState(state);
+    })
     getTasks(123)
       .then(tasksFromServer => {
 
@@ -28,30 +38,35 @@ class ToDoList extends Component {
             isInProgress: false
           };
         });
-        this.setState({ tasks: tasks });
-      })
 
+        var action = putTasksAction(tasks);
+
+        this.store.dispatch(action);
+      })
   }
+
+
 
   clearCompleted() {
     const ArrayTasks = [...this.state.tasks];
     ArrayTasks.forEach(
       (t) => {
+        // debugger;
         if (t.isDone) {
           t.isInProgress = !t.isInProgress;
           removeTask(t.id, 123).then(() => {
+            
             this.deleteTask(t.id);
             t.isInProgress = !t.isInProgress;
-          });
+          }); 
         };
 
       });
-    this.setState({
-      tasks: ArrayTasks
-    })
+    var action = clearCompleted(ArrayTasks);
+    this.store.dispatch(action);
+    }
 
-  }
-
+  
   changeFilter(filterValue) {
     this.setState({ filter: filterValue })
   }
