@@ -8,7 +8,8 @@ import { getTasks } from './Services.js';
 import { removeTask } from './Services.js';
 import { toDoListReducer } from './redux/toDoList-reducers.js';
 import { putTasksAction } from './redux/toDolist-actions';
-import {clearCompleted} from  './redux/toDolist-actions';
+import { clearCompleted } from './redux/toDolist-actions';
+import { showLoadingGif } from './redux/toDolist-actions';
 
 class ToDoList extends Component {
   constructor() {
@@ -54,19 +55,22 @@ class ToDoList extends Component {
         // debugger;
         if (t.isDone) {
           t.isInProgress = !t.isInProgress;
+
           removeTask(t.id, 123).then(() => {
-            
-            this.deleteTask(t.id);
+
+            var action = clearCompleted();
+            this.store.dispatch(action);
             t.isInProgress = !t.isInProgress;
-          }); 
+          });
         };
 
       });
-    var action = clearCompleted(ArrayTasks);
+    var action = showLoadingGif(ArrayTasks);
     this.store.dispatch(action);
-    }
 
-  
+  }
+
+
   changeFilter(filterValue) {
     this.setState({ filter: filterValue })
   }

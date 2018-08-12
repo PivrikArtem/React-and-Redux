@@ -9,10 +9,15 @@ export function toDoListReducer(oldState, action) {
             }
 
         case c.CLEAR_COMPLETED:
-           
-        return {
+            return {
                 ...oldState,
-                tasks: oldState.filter((t)=>{t.isDone})
+                tasks: [...oldState.tasks.filter(t => !t.isDone)]
+            }
+
+        case c.SHOW_LOADING_GIF:
+            return {
+                ...oldState,
+                tasks:[...action.tasks]
             }
 
         default:

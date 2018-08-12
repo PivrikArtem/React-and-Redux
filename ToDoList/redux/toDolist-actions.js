@@ -1,7 +1,8 @@
 export const c = {
-    
+
     PUT_TASKS: 'PUT_TASKS',
-    CLEAR_COMPLETED: 'CLEAR_COMPLETED'
+    CLEAR_COMPLETED: 'CLEAR_COMPLETED',
+    SHOW_LOADING_GIF: 'SHOW_LOADING_GIF'
 }
 
 export const putTasksAction = (tasks) => {
@@ -11,9 +12,16 @@ export const putTasksAction = (tasks) => {
     }
 }
 
-export const clearCompleted = (ArrayTasks) => {
+export const clearCompleted = () => {
     return {
-        type: c.CLEAR_COMPLETED,
+        type: c.CLEAR_COMPLETED
+
+    }
+}
+
+export const showLoadingGif = (ArrayTasks) => {
+    return {
+        type: c.SHOW_LOADING_GIF,
         tasks: ArrayTasks
     }
 }
