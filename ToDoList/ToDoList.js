@@ -10,6 +10,11 @@ import { toDoListReducer } from './redux/toDoList-reducers.js';
 import { putTasksAction } from './redux/toDolist-actions';
 import { clearCompleted } from './redux/toDolist-actions';
 import { showLoadingGif } from './redux/toDolist-actions';
+import { changeFilter } from './redux/toDolist-actions';
+import { createNewTask } from './redux/toDolist-actions';
+import { deleteTask } from './redux/toDolist-actions';
+import { updateTask } from './redux/toDolist-actions';
+
 
 class ToDoList extends Component {
   constructor() {
@@ -52,7 +57,6 @@ class ToDoList extends Component {
     const ArrayTasks = [...this.state.tasks];
     ArrayTasks.forEach(
       (t) => {
-        // debugger;
         if (t.isDone) {
           t.isInProgress = !t.isInProgress;
 
@@ -65,42 +69,41 @@ class ToDoList extends Component {
         };
 
       });
-    var action = showLoadingGif(ArrayTasks);
-    this.store.dispatch(action);
+
+    this.store.dispatch(showLoadingGif(ArrayTasks));
 
   }
 
 
   changeFilter(filterValue) {
-    this.setState({ filter: filterValue })
+    // debugger;
+    this.store.dispatch(changeFilter(filterValue));
   }
 
   createNewTask(task) {
-
-    this.setState({
-      tasks: [...this.state.tasks, task]
-    });
-
+    this.store.dispatch(createNewTask(task));
   }
 
   deleteTask(taskId) {
+    this.store.dispatch(deleteTask(taskId));
 
-    this.setState({
-      tasks: this.state.tasks.filter((t) => { return t.id !== taskId })
-    });
+    // this.setState({
+    //   tasks: this.state.tasks.filter((t) => { return t.id !== taskId })
+    // });
   }
   updateTask(task) {
-    const newTaskList = [...this.state.tasks]
+    this.store.dispatch( updateTask(task));
+    // const newTaskList = [...this.state.tasks]
 
-    newTaskList.forEach((t) => {
-      if (t.id === task.id) {
-        t.isDone = task.isDone
-        return
-      }
-    });
-    this.setState({
-      tasks: newTaskList
-    })
+    // newTaskList.forEach((t) => {
+    //   if (t.id === task.id) {
+    //     t.isDone = task.isDone
+    //     return
+    //   }
+    // });
+    // this.setState({
+    //   tasks: newTaskList
+    // })
   }
 
   loadingGif() {
